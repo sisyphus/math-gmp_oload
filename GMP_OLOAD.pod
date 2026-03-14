@@ -9,10 +9,10 @@
   This module allows Math-MPFR-4.46 and later to overload Math::GMP objects
   wrt all arithmetic and comparison operations.
   YMMV if Math-MPFR is at an earlier version.
+  This module relies on Math::GMP being available, and will fail to load if
+  Math::GMP cannot be loaded.
   It is planned that, in future, this module will be extended to also allow
-  complete overloading of Math::GMP objects with Math::GMPz and Math::GMPq.
-  It relies on Math::GMP being available, and will fail to load if Math::GMP
-  cannot be loaded.
+  extra overloading of Math::GMP objects with Math::GMPz and Math::GMPq.
 
 =head1 SYNOPSIS
 
