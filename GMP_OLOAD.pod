@@ -1,0 +1,39 @@
+=pod
+
+=head1 NAME
+
+  Math::GMP_OLOAD - assist in the overloading of Math::GMP objects.
+
+=head1 DESCRIPTION
+
+  This module allows Math-MPFR-4.46 and later to overload Math::GMP objects
+  wrt all arithmetic and comparison operations.
+  YMMV if Math-MPFR is at an earlier version.
+  It is planned that, in future, this module will be extended to also allow
+  complete overloading of Math::GMP objects with Math::GMPz and Math::GMPq.
+  It relies on Math::GMP being available, and will fail to load if Math::GMP
+  cannot be loaded.
+
+=head1 SYNOPSIS
+
+  Either:
+  require Math::GMP_OLOAD;
+  or:
+  use Math::GMP_OLOAD;
+
+=head1 ACKNOWLEDGEMENTS
+
+  Thanks to Eric Choroba for presenting the method being used here on the
+  perlmonks website.
+
+=head1 LICENSE
+
+  This program is free software; you may redistribute it and/or
+  modify it under the same terms as Perl itself.
+  Copyright 2026 Sisyphus.
+
+=head1 AUTHOR
+
+  Sisyphus <sisyphus at(@) cpan dot (.) org>
+
+=cut

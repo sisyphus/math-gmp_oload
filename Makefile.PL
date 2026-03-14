@@ -8,9 +8,10 @@ my %options = (
   AUTHOR => 'Sisyphus (sisyphus at (@) cpan dot (.) org)',
   ABSTRACT => 'Enable Math::MPFR overloading of Math::GMP objects',
   LICENSE  => 'perl',
-  PREREQ_PM => { 'Test::More' => '0.88',
-                'Test::Warn' => '0.36',
-                'Exporter'   => '5.58', # avoid test failures on pre perl-5.8.4
+  PREREQ_PM => {
+                 'Test::More' => '0.88',
+                 'Exporter'   => '5.58', # avoid test failures on pre perl-5.8.4
+                 'Math::GMP'   => '2.25',
                },
   META_MERGE   => {
    'meta-spec' => { version => 2 },
