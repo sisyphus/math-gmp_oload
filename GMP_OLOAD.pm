@@ -43,7 +43,7 @@ use warnings;
     };
 
     use overload "/" => sub ($$$) {
-      my($x, $y, $s) = (shift, shift);
+      my($x, $y) = (shift, shift);
       if(ref($y) eq 'Math::MPFR') {
         return 1/($y / $x);
       }
@@ -57,7 +57,8 @@ use warnings;
         return Math::MPFR::overload_pow($y, $x, 1);
       }
 
-      return shift ? op_pow($y, $x) : op_pow($x, $y);
+      my $s = shift;
+      return $s ? op_pow($y, $x) : op_pow($x, $y);
     };
 
 
