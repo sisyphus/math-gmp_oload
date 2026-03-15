@@ -5,7 +5,7 @@ In such arithmetic operations a Math::MPFR object is returned.
 REQUIREMENTS:
 We require that at least version 4.43 of Math-MPFR is installed - otherwise
 (not fully tested) the overloading might malfunction.
-We also require that at least version 2.25 of Math::GMP is installed - otherwise
+We also require that at least version 2.11 of Math::GMP is installed - otherwise
 (not tested) the overloading might malfunction.
 NOTE: It is up to the user (NOT the Math::GMP_OLOAD code) to ensure that both
       of those requirements are met.

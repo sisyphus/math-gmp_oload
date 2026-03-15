@@ -11,7 +11,7 @@ my %options = (
   PREREQ_PM => {
                  'Test::More' => '0.88',
                  'Exporter'   => '5.58', # avoid test failures on pre perl-5.8.4
-                 'Math::GMP'   => '2.25',
+                 'Math::GMP'   => '2.11',
                },
   META_MERGE   => {
    'meta-spec' => { version => 2 },

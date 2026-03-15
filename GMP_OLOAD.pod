@@ -8,9 +8,10 @@
 
   This module allows Math-MPFR-4.43 and later to overload Math::GMP objects
   wrt all arithmetic and comparison operations.
-  YMMV if Math-MPFR is at an earlier version.
   This module relies on Math::GMP being available, and will fail to load if
   Math::GMP cannot be loaded.
+  YMMV if Math-MPFR is at an earlier version or if Math-GMP version is less
+  than 2.11.
   It is planned that, in future, this module will be extended to also allow
   the extra overloading of Math::GMP objects with Math::GMPz and Math::GMPq.
 
@@ -30,8 +31,8 @@
     # In actual fact, the low limit (unverified) might be less thn 4.43.
     die "Math::MPFR is untrustworthy" if $Math::MPFR::VERSION < 4.43;
 
-    # In actual fact, the low limit (unverified) might be less thn 2.25.
-    die "Math::GMP is untrustworthy"  if $Math::GMP::VERSION  < 2.25;
+    # In actual fact, the low limit (unverified) might be less thn 2.11.
+    die "Math::GMP is untrustworthy"  if $Math::GMP::VERSION  < 2.11;
 
     my $g = Math::GMP->new(17);
     my $f = Math::MPFR->new(20.5);
