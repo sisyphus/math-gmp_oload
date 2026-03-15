@@ -130,7 +130,7 @@ cmp_ok($rop, '==', 25, "MPFR * GMP returns correct value");
 
 $rop = $gmp_tiny / $mpfr_tiny;
 cmp_ok(ref($rop), 'eq', 'Math::MPFR', "GMP / MPFR returns MPFR");
-cmp_ok($rop, '==', 1, "MPFR / GMP returns correct value");
+cmp_ok($rop, '==', 1, "GMP / MPFR returns correct value");
 
 $rop = $gmp_tiny ** $mpfr_tiny;
 cmp_ok(ref($rop), 'eq', 'Math::MPFR', "GMP ** MPFR returns MPFR");
@@ -186,7 +186,7 @@ cmp_ok($op_mpfr, '==', -1, "MPFR -= GMP returns correct value");
 
 $op_gmp -=  $op_mpfr;
 cmp_ok(ref($op_gmp), 'eq', 'Math::MPFR', "GMP -= MPFR returns MPFR");
-cmp_ok($op_gmp, '==', 7, "MPFR -= GMP returns correct value");
+cmp_ok($op_gmp, '==', 7, "GMP -= MPFR returns correct value");
 
 $op_gmp = Math::GMP->new(6);
 $op_mpfr = Math::MPFR->new(5);

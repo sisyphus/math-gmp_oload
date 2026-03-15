@@ -5,3 +5,4 @@ GMP_OLOAD.pod
 Makefile.PL
 t/01-load.t
 t/02-mpfr.t
+t/03-mpq.t

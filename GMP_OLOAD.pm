@@ -17,7 +17,7 @@ use warnings;
 
     use overload "+" => sub ($$$) {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
         return $y + $x;
       }
 
@@ -26,7 +26,7 @@ use warnings;
 
     use overload "-" => sub ($$$)  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
         return -($y - $x);
       }
 
@@ -35,7 +35,7 @@ use warnings;
 
     use overload "*" => sub ($$$) {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
         return $y * $x;
       }
 
@@ -44,7 +44,7 @@ use warnings;
 
     use overload "/" => sub ($$$) {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
         return 1/($y / $x);
       }
 
@@ -56,6 +56,10 @@ use warnings;
       if(ref($y) eq 'Math::MPFR') {
         return Math::MPFR::overload_pow($y, $x, 1);
       }
+      elsif(ref($y) eq 'Math::GMPq') {
+        # Currently: Invalid argument supplied to Math::GMPq::overload_pow
+        return Math::GMPq::overload_pow($y, $x, 1);
+      }
 
       my $s = shift;
       return $s ? op_pow($y, $x) : op_pow($x, $y);
@@ -64,7 +68,7 @@ use warnings;
 
     use overload "<" => sub  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
         return 1 if $y > $x;
         return 0;
       }
@@ -76,7 +80,7 @@ use warnings;
 
     use overload ">" => sub  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
         return 1 if $y < $x;
         return 0;
       }
@@ -88,7 +92,7 @@ use warnings;
 
     use overload "<=" => sub  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
         return 1 if $y >= $x;
         return 0;
       }
@@ -100,7 +104,7 @@ use warnings;
 
     use overload ">=" => sub  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
         return 1 if $y <= $x;
         return 0;
       }
@@ -112,7 +116,7 @@ use warnings;
 
     use overload "==" => sub ($$$)  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
         return 1 if $y == $x;
         return 0;
       }
@@ -124,7 +128,7 @@ use warnings;
 
     use overload "!=" => sub ($$$)  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
         return 1 if $y != $x;
         return 0;
       }
@@ -136,7 +140,7 @@ use warnings;
 
     use overload "<=>" => sub ($$$)  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
         return ($y <=> $x) * -1;
       }
 
