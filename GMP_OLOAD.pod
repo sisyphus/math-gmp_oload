@@ -6,13 +6,13 @@
 
 =head1 DESCRIPTION
 
-  This module allows Math-MPFR-4.46 and later to overload Math::GMP objects
+  This module allows Math-MPFR-4.43 and later to overload Math::GMP objects
   wrt all arithmetic and comparison operations.
   YMMV if Math-MPFR is at an earlier version.
   This module relies on Math::GMP being available, and will fail to load if
   Math::GMP cannot be loaded.
   It is planned that, in future, this module will be extended to also allow
-  extra overloading of Math::GMP objects with Math::GMPz and Math::GMPq.
+  the extra overloading of Math::GMP objects with Math::GMPz and Math::GMPq.
 
 =head1 SYNOPSIS
 
@@ -21,10 +21,31 @@
   or:
   use Math::GMP_OLOAD;
 
+  Example:
+    use strict;
+    use warnings;
+    use Math::MPFR;
+    require Math::GMP_OLOAD;
+
+    # In actual fact, the low limit (unverified) might be less thn 4.43.
+    die "Math::MPFR is untrustworthy" if $Math::MPFR::VERSION < 4.43;
+
+    # In actual fact, the low limit (unverified) might be less thn 2.25.
+    die "Math::GMP is untrustworthy"  if $Math::GMP::VERSION  < 2.25;
+
+    my $g = Math::GMP->new(17);
+    my $f = Math::MPFR->new(20.5);
+    print ref($g), "\n";     # prints 'Math::GMP'
+    print "ok\n" if $g < $f; # prints 'ok'
+    $g *= $f;
+    print ref($g), "\n";     # prints 'Math::MPFR'
+    print "$g\n";            # prints 3.485e2
+
+
 =head1 ACKNOWLEDGEMENTS
 
-  Thanks to Eric Choroba for presenting the method being used here on the
-  perlmonks website.
+  Thanks to Eric Choroba for presenting, on the perlmonks website, the method
+  being employed here.
 
 =head1 LICENSE
 
