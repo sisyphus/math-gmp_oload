@@ -25,8 +25,14 @@ if($@) {
   exit 0;
 }
 
-if($Math::MPFR::VERSION < 4.43) {
-  plan skip_all => " Math::MPFR::VERSION ($Math::MPFR::VERSION) not supported - need at least 4.43.";
+if($Math::MPFR::VERSION < 4.35) {
+  plan skip_all => " Math::MPFR::VERSION ($Math::MPFR::VERSION) not supported - need at least 4.35.";
+  done_testing();
+  exit 0;
+}
+
+if($Math::GMP::VERSION < 2.11) {
+  plan skip_all => " Math::GMP::VERSION ($Math::GMP::VERSION) not supported - need at least 2.11.";
   done_testing();
   exit 0;
 }
@@ -191,7 +197,7 @@ cmp_ok($op_mpfr, '==', 15625, "MPFR **= GMP returns correct value");
 
 $op_gmp **=  $op_mpfr;
 cmp_ok(ref($op_gmp), 'eq', 'Math::MPFR', "GMP **= MPFR returns MPFR");
-cmp_ok($op_gmp, '==', 6 ** $op_mpfr, "MPFR **= GMP returns correct value");
+cmp_ok($op_gmp, '==', 6 ** $op_mpfr, "MPFR **= GMP returns correct value"); # Line 194
 
 ##################################
 cmp_ok(($gmp_tiny <=> $mpfr_big), '<', 0, "GMP_TINY <=> MPFR_BIG < 0");
