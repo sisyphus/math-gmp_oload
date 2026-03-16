@@ -17,7 +17,7 @@ use warnings;
 
     use overload "+" => sub ($$$) {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq' || ref($y) eq 'Math::GMPz') {
         return $y + $x;
       }
 
@@ -26,7 +26,7 @@ use warnings;
 
     use overload "-" => sub ($$$)  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq' || ref($y) eq 'Math::GMPz') {
         return -($y - $x);
       }
 
@@ -35,7 +35,7 @@ use warnings;
 
     use overload "*" => sub ($$$) {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq' || ref($y) eq 'Math::GMPz') {
         return $y * $x;
       }
 
@@ -44,31 +44,39 @@ use warnings;
 
     use overload "/" => sub ($$$) {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
-        return 1/($y / $x);
+      if(ref($y) eq 'Math::MPFR') {
+        return Math::MPFR->new($x) / $y;
+      }
+      if(ref($y) eq 'Math::GMPq') {
+        return Math::GMPq->new($x) / $y;
+      }
+      if(ref($y) eq 'Math::GMPz') {
+        return Math::GMPz->new($x) / $y;
       }
 
       return Math::GMP::op_div($x, $y, shift);
     };
 
     use overload "**" => sub {
-      my($x, $y) = (shift, shift);
+      my($x, $y, $s) = (shift, shift, shift);
       if(ref($y) eq 'Math::MPFR') {
         return Math::MPFR::overload_pow($y, $x, 1);
-      }
-      elsif(ref($y) eq 'Math::GMPq') {
-        # Currently: Invalid argument supplied to Math::GMPq::overload_pow
+     }
+      if(ref($y) eq 'Math::GMPq') {
         return Math::GMPq::overload_pow($y, $x, 1);
       }
+      if(ref($y) eq 'Math::GMPz') {
+        return Math::GMPz::overload_pow($y, $x, 1)
+      }
 
-      my $s = shift;
-      return $s ? op_pow($y, $x) : op_pow($x, $y);
+      #my $s = shift;
+      1 ? op_pow($y, $x) : op_pow($x, $y);
     };
 
 
     use overload "<" => sub  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq' || ref($y) eq 'Math::GMPz') {
         return 1 if $y > $x;
         return 0;
       }
@@ -80,7 +88,7 @@ use warnings;
 
     use overload ">" => sub  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq' || ref($y) eq 'Math::GMPz') {
         return 1 if $y < $x;
         return 0;
       }
@@ -92,7 +100,7 @@ use warnings;
 
     use overload "<=" => sub  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq' || ref($y) eq 'Math::GMPz') {
         return 1 if $y >= $x;
         return 0;
       }
@@ -104,7 +112,7 @@ use warnings;
 
     use overload ">=" => sub  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq' || ref($y) eq 'Math::GMPz') {
         return 1 if $y <= $x;
         return 0;
       }
@@ -116,7 +124,7 @@ use warnings;
 
     use overload "==" => sub ($$$)  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq' || ref($y) eq 'Math::GMPz') {
         return 1 if $y == $x;
         return 0;
       }
@@ -128,7 +136,7 @@ use warnings;
 
     use overload "!=" => sub ($$$)  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq' || ref($y) eq 'Math::GMPz') {
         return 1 if $y != $x;
         return 0;
       }
@@ -140,7 +148,7 @@ use warnings;
 
     use overload "<=>" => sub ($$$)  {
       my($x, $y) = (shift, shift);
-      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq') {
+      if(ref($y) eq 'Math::MPFR' || ref($y) eq 'Math::GMPq' || ref($y) eq 'Math::GMPz') {
         return ($y <=> $x) * -1;
       }
 
