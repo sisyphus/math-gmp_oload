@@ -60,18 +60,46 @@ use warnings;
     use overload "**" => sub {
       my($x, $y, $s) = (shift, shift, shift);
       if(ref($y) eq 'Math::MPFR') {
+        # We've called GMP ** MPFR ($x ** $y)
         return Math::MPFR::overload_pow($y, $x, 1);
      }
       if(ref($y) eq 'Math::GMPq') {
+        # We've called GMP ** GMPq ($x ** $y)
         return Math::GMPq::overload_pow($y, $x, 1);
       }
       if(ref($y) eq 'Math::GMPz') {
-        return Math::GMPz::overload_pow($y, $x, 1)
+        # We've called GMP ** GMPz ($x ** $y)
+        return Math::GMPz::overload_pow(Math::GMPz->new($x), $y, 0);
       }
 
-      #my $s = shift;
-      1 ? op_pow($y, $x) : op_pow($x, $y);
+      # We get to here because we've called either:
+      # OTHER ** GMP ($y ** $x), and $s is true
+      # or
+      # GMP ** OTHER ($x ** $y), and $s is false
+      $s ? op_pow($y, $x) : op_pow($x, $y);
     };
+
+#    use overload "**=" => sub {
+#      my($x, $y, $s) = (shift, shift, shift);
+#      if(ref($y) eq 'Math::MPFR') {
+#        # We've called GMP ** MPFR ($x ** $y)
+#        return Math::MPFR::overload_pow($y, $x, 1);
+#     }
+#      if(ref($y) eq 'Math::GMPq') {
+#        # We've called GMP ** GMPq ($x ** $y)
+#        return Math::GMPq::overload_pow($y, $x, 1);
+#      }
+#      if(ref($y) eq 'Math::GMPz') {
+#        # We've called GMP ** GMPz ($x ** $y)
+#        return Math::GMPz::overload_pow(Math::GMPz->new($x), $y, 0);
+#      }
+#
+#      # We get to here because we've called either:
+#      # OTHER ** GMP ($y ** $x), and $s is true
+#      # or
+#      # GMP ** OTHER ($x ** $y), and $s is false
+#      $s ? op_pow($y, $x) : op_pow($x, $y);
+#    };
 
 
     use overload "<" => sub  {
