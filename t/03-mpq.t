@@ -88,10 +88,10 @@ $rop = $gmpq_big / $gmp_tiny;
 cmp_ok(ref($rop), 'eq', 'Math::GMPq', "GMPq / GMP returns GMPq");
 cmp_ok($rop, '==', 20, "GMPq / GMP returns correct value");
 
-# In the gmp library, an mpz_t can be raised only to the power of an unsigned long int.
-# TODO : Accept an mpz_t power if it fits into an unsigned long int.
-eval { $rop = $gmpq_big ** $gmp_tiny;};
-like($@, qr/^Invalid argument supplied to Math::GMPq::overload_pow/, "GMPq ** GMP throws expected error");
+$rop = $gmpq_big ** $gmp_tiny;
+cmp_ok(ref($rop), 'eq', 'Math::GMPq', "GMPq ** GMP returns GMPq");
+cmp_ok($rop, '==', 10000000000, "GMPq ** GMP returns correct value");
+
 ###################################
 $rop = $gmp_tiny + $gmpq_tiny;
 cmp_ok(ref($rop), 'eq', 'Math::GMPq', "GMP + GMPq returns GMPq");
@@ -169,10 +169,9 @@ cmp_ok($op_gmp, '==', 7, "GMP -= GMPq returns correct value");
 $op_gmp = Math::GMP->new(6);
 $op_gmpq = Math::GMPq->new(5);
 
-# In the gmp library, an mpz_t can be raised only to the power of an unsigned long int.
-# TODO : Accept an mpz_t power if it fits into an unsigned long int.
-eval { $op_gmpq **=  $op_gmp;};
-like($@, qr/^Invalid argument supplied to Math::GMPq::overload_pow_eq function/, "GMPq **= GMP throws expected error");
+$op_gmpq **=  $op_gmp;
+cmp_ok(ref($op_gmpq), 'eq', 'Math::GMPq', "GMPq **= GMP returns GMPq");
+cmp_ok($op_gmpq, '==', 15625, "GMPq **= GMP returns correct value");
 
 eval {$op_gmp **=  $op_gmpq;};
 like($@, qr/^Raising a value to an mpq_t power is not allowed in '\*\*' operation/, "GMP **= GMPq throws expected error");
