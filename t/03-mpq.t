@@ -109,10 +109,8 @@ $rop = $gmp_tiny / $gmpq_tiny;
 cmp_ok(ref($rop), 'eq', 'Math::GMPq', "GMP / GMPq returns GMPq");
 cmp_ok($rop, '==', 1, "GMP / GMPq returns correct value");
 
-# In the gmp library, an mpq_t can be raised only to the power of an unsigned long int.
-# I think that's the way it should be: X raised to a rational power can produce an irrational result.
-eval {$rop = $gmp_tiny ** $gmpq_tiny;};
-like($@, qr/^Raising a value to an mpq_t power is not allowed in '\*\*' operation/, "GMP ** GMPq throws expected error");
+eval { $rop = $gmp_tiny ** $gmpq_tiny;};
+like($@, qr/^Only Math::MPFR's overloading of '\*\*' can handle Math::GMPq exponents/, "GMP ** GMPq produces expected error");
 
 $rop = $gmp_tiny ** 5;
 cmp_ok(ref($rop), 'eq', 'Math::GMP', "GMP ** IV returns GMP");
@@ -173,9 +171,8 @@ $op_gmpq **=  $op_gmp;
 cmp_ok(ref($op_gmpq), 'eq', 'Math::GMPq', "GMPq **= GMP returns GMPq");
 cmp_ok($op_gmpq, '==', 15625, "GMPq **= GMP returns correct value");
 
-eval {$op_gmp **=  $op_gmpq;};
-like($@, qr/^Raising a value to an mpq_t power is not allowed in '\*\*' operation/, "GMP **= GMPq throws expected error");
-
+eval { $op_gmp **=  $op_gmpq;};
+like($@, qr/^Only Math::MPFR's overloading of '\*\*' can handle Math::GMPq exponents/, "GMP **= GMPq produces expected error");
 ##################################
 cmp_ok(($gmp_tiny <=> $gmpq_big), '<', 0, "GMP_TINY <=> GMPQ_BIG < 0");
 cmp_ok(($gmpq_tiny <=> $gmp_big), '<', 0, "GMPQ_TINY <=> GMP_BIG < 0");
@@ -189,7 +186,6 @@ cmp_ok($gmpq_tiny, '==', $gmpq_tiny, "GMPQ_TINY == GMPQ_TINY");
 cmp_ok($gmpq_big, '!=', $gmpq_tiny, "GMPQ_BIG != GMPQ_TINY");
 cmp_ok(($gmpq_tiny <=> $gmpq_tiny), '==', 0, "GMPQ_TINY <=> GMPQ_TINY == 0");
 cmp_ok(($gmpq_big <=> $gmpq_tiny), '>', 0, "GMPQ_BIG <=> GMPQ_TINY > 0");
-
 cmp_ok($gmp_big, '>', $gmp_tiny, "GMP_BIG > GMP_TINY");
 cmp_ok($gmp_tiny, '<', $gmp_big, "GMP_TINY < GMP_BIG");
 cmp_ok($gmp_big, '>=', $gmp_tiny, "GMP_BIG >= GMP_TINY");
@@ -214,5 +210,8 @@ cmp_ok($gmp_big, '!=', $gmp_tiny, "GMP_BIG != GMP_TINY");
 
 cmp_ok(($gmp_tiny <=> $gmp_tiny), '==', 0, "GMP_TINY <=> GMP_TINY == 0");
 cmp_ok(($gmp_big <=> $gmp_tiny), '>', 0, "GMP_BIG <=> GMP_TINY > 0");
+
+eval { $rop = Math::GMP->new(11) ** Math::GMPq->new(2);};
+like($@, qr/^Only Math::MPFR's overloading of '\*\*' can handle Math::GMPq exponents/, "GMP ** GMPq produces expected error");
 
 done_testing();
