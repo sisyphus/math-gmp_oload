@@ -25,8 +25,8 @@ if($@) {
   exit 0;
 }
 
-if($Math::MPFR::VERSION < 4.35) {
-  plan skip_all => " Math::MPFR::VERSION ($Math::MPFR::VERSION) not supported - need at least 4.35.";
+if($Math::MPFR::VERSION < 4.47) {
+  plan skip_all => " Math::MPFR::VERSION ($Math::MPFR::VERSION) not supported - need at least 4.47.";
   done_testing();
   exit 0;
 }
