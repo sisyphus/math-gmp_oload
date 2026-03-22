@@ -45,7 +45,7 @@
 
 =head1 ACKNOWLEDGEMENTS
 
-  Thanks to Eric Choroba for presenting, on the perlmonks website, the method
+  Thanks to Choroba for presenting, on the perlmonks website, the method
   being employed here.
 
 =head1 LICENSE
