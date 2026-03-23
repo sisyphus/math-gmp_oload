@@ -9,7 +9,7 @@ use warnings;
     }
   }
 
-  $Math::GMP_OLOAD::VERSION = '0.02';
+  $Math::GMP_OLOAD::VERSION = '0.03';
 }
 
 {
