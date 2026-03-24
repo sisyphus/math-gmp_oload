@@ -7,4 +7,5 @@ t/01-load.t
 t/02-mpfr.t
 t/03-mpq.t
 t/04-mpz.t
+t/05-together.t
 README
