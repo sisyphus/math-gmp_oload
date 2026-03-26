@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use perl-5.018; # Earlier perl versions have some overloading issues
+use 5.018; # Earlier perl versions have some overloading issues
 {
   package Math::GMP_OLOAD;
   BEGIN {
