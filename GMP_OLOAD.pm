@@ -1,5 +1,7 @@
 use strict;
 use warnings;
+
+use perl-5.018; # Earlier perl versions have some overloading issues
 {
   package Math::GMP_OLOAD;
   BEGIN {
@@ -82,16 +84,16 @@ use warnings;
 #    use overload "**=" => sub {
 #      my($x, $y, $s) = (shift, shift, shift);
 #      if(ref($y) eq 'Math::MPFR') {
-#        # We've called GMP ** MPFR ($x ** $y)
+#        # We've called GMP **= MPFR ($x **= $y)
 #        return Math::MPFR::overload_pow($y, $x, 1);
-#     }
+#      }
 #      if(ref($y) eq 'Math::GMPq') {
-#        # We've called GMP ** GMPq ($x ** $y)
+#        # We've called GMP **= GMPq ($x **= $y)
 #        return Math::GMPq::overload_pow($y, $x, 1);
 #      }
 #      if(ref($y) eq 'Math::GMPz') {
-#        # We've called GMP ** GMPz ($x ** $y)
-#        return Math::GMPz::overload_pow(Math::GMPz->new($x), $y, 0);
+#        # We've called GMP **= GMPz ($x **= $y)
+#        return Math::GMPz::overload_pow($y, $x, 1);
 #      }
 #
 #      # We get to here because we've called either:

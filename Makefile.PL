@@ -2,6 +2,8 @@ use strict;
 use warnings;
 use ExtUtils::MakeMaker;
 
+use 5.018; # Earlier perl versions have some overloading issues
+
 my %options = (
   NAME     => 'Math::GMP_OLOAD',
   VERSION_FROM => 'GMP_OLOAD.pm',

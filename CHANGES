@@ -1,6 +1,6 @@
 # CHANGES file for Math::GMP_OLOAD
 
-0.03
+0.03 - Require perl-5.18 as earlier perl versions have some overloading issues.
 
 0.02 - Add missing README.
      - Adjust the Makefile.PL 'ABSTRACT' and the GMP_OLOAD.pm 'DESCRIPTION'
