@@ -7,7 +7,7 @@ eval { require Math::GMP_OLOAD;};
 
 if(!$@) {
   warn "Math::GMP_OLOAD has successfully loaded\n";
-  cmp_ok($Math::GMP_OLOAD::VERSION, 'eq', "0.03", '$Math::GMP_OLOAD::VERSION eq "0.03"');
+  cmp_ok($Math::GMP_OLOAD::VERSION, 'eq', "0.04", '$Math::GMP_OLOAD::VERSION eq "0.04"');
 }
 else {
   warn "\$\@: $@\n Math::GMP has not loaded - hence Math::GMP_OLOAD has also failed to load\n";
