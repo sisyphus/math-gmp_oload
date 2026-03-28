@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-  Math::GMP_OLOAD - assist in the overloading of Math::GMP objects.
+  Math::GMP_OLOAD - assist Math::GMPz/GMPq/MPFR in the overloading of Math::GMP objects.
 
 =head1 DESCRIPTION
 

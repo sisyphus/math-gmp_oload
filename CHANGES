@@ -1,6 +1,6 @@
 # CHANGES file for Math::GMP_OLOAD
 
-0.04
+0.04 - Adjust "NAME" in GMP_OLOAD.pod.
 
 0.03 - Fix portability with pre-5.18 builds of perl.
 
